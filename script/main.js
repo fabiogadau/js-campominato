@@ -12,3 +12,9 @@ con difficoltà 0 => tra 1 e 100
 con difficoltà 1 =>  tra 1 e 80
 con difficoltà 2=> tra 1 e 50
 */
+var computerNumbers = [];
+
+for (i = 1; i <= 16; i++) {
+  computerNumbers.push(Math.floor( Math.random() * 100) + 1);
+};
+console.log(computerNumbers);
