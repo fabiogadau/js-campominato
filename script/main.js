@@ -14,7 +14,35 @@ con difficoltà 2=> tra 1 e 50
 */
 var computerNumbers = [];
 
+var userNumbers = parseInt(prompt('Inserisci un numero da 1 a 100'));
+
+var userNumbersCont = [];
+
+var result = true;
+
 for (i = 1; i <= 16; i++) {
   computerNumbers.push(Math.floor( Math.random() * 100) + 1);
 };
+
+for (i = 1; i <= 84 && result == true; i++) {
+  userNumbersCont.push(userNumbers);
+
+  if ( computerNumbers.includes(userNumbers) || userNumbers <= 0 || userNumbers > 100 ) {
+    result = false;
+    alert('Hai perso');
+    alert('Hai inserito ' + userNumbersCont.length + ' numeri');
+  }
+  else if ( !computerNumbers.includes(userNumbers) ) {
+    result = true
+    userNumbers = parseInt(prompt('Inserisci un numero da 1 a 100'));
+  }
+  else if (userNumberscont.length = 84) {
+    result = true
+    alert('Hai inserito ' + userNumbersCont.length + ' numeri');
+  }
+};
+
 console.log(computerNumbers);
+console.log(userNumbers);
+console.log(userNumbersCont);
+console.log(result);
