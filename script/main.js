@@ -13,15 +13,34 @@ con difficoltà 1 =>  tra 1 e 80
 con difficoltà 2=> tra 1 e 50
 */
 var computerNumbers = [];
-
-var userNumbers = parseInt(prompt('Inserisci un numero da 1 a 100'));
-
 var userNumbersCont = [];
-
 var result = true;
+var maxNumbers = 100;
+var numbersToWin = 84;
+var scelta = parseInt( prompt('Scegli difficoltà tra 0, 1 o 2.') );
+
+switch(scelta) {
+  case 0:
+    maxNumbers = 100;
+    numbersToWin = 84;
+    break;
+  case 1:
+    maxNumbers = 80;
+    numbersToWin = 64;
+    break;
+  case 2:
+    maxNumbers = 50;
+    numbersToWin = 34;
+    break;
+  default:
+    maxNumbers = 100;
+    numbersToWin = 84;
+};
+
+var userNumbers = askRange(maxNumbers);
 
 for (i = 1; i <= 16; i++) {
-  computerNum = Math.floor( Math.random() * 100) + 1;
+  computerNum = Math.floor( Math.random() * maxNumbers) + 1;
 
   if (!computerNumbers.includes(computerNum)) {
     computerNumbers.push(computerNum);
@@ -31,26 +50,36 @@ for (i = 1; i <= 16; i++) {
   }
 };
 
-for (i = 1; i <= 84 && result == true; i++) {
-
-
-  if ( computerNumbers.includes(userNumbers) || userNumbers <= 0 || userNumbers > 100 || isNaN(userNumbers) || userNumbersCont.includes(userNumbers) ) {
+for (i = 1; i <= numbersToWin && result == true; i++) {
+  if ( computerNumbers.includes(userNumbers) ) {
     result = false;
     alert('La mina è esplosa! Hai perso!');
-    alert('Hai inserito ' + userNumbersCont.length + ' numeri');
+    alert('Hai affettuato ' + userNumbersCont.length + ' tentativi.');
+    console.log('La mina è esplosa! Hai perso! Hai affettuato ' + userNumbersCont.length + ' tentativi.');
+  }
+  else if ( userNumbers <= 0 || userNumbers > maxNumbers || isNaN(userNumbers) ) {
+    userNumbers = parseInt(prompt('Il dato inserito deve essere un numero compreso tra 0 e ' + maxNumbers));
+  }
+  else if (userNumbersCont.includes(userNumbers)) {
+  userNumbers = parseInt(prompt('Hai già inserito questo numero, inseriscine uno nuovo.'));
   }
   else if ( !computerNumbers.includes(userNumbers) ) {
     result = true
     userNumbersCont.push(userNumbers);
-    userNumbers = parseInt(prompt('Inserisci un numero da 1 a 100'));
+    userNumbers = askRange(maxNumbers);
   }
-  else if (userNumberCont.length = 84) {
+  else if (userNumberCont.length == numbersToWin) {
     result = true
     alert('Hai inserito ' + userNumbersCont.length + ' numeri, il numero massimo di tentativi. Hai vinto!');
+    console.log('Hai inserito ' + userNumbersCont.length + ' numeri, il numero massimo di tentativi. Hai vinto!');
   }
 };
 
-console.log(computerNumbers);
-console.log(userNumbers);
-console.log(userNumbersCont);
+console.log('Numeri bomba:', computerNumbers);
+console.log('Numero bomba inserito:', userNumbers);
+console.log('I tuoi numeri:', userNumbersCont);
 console.log(result);
+
+function askRange(max) {
+  return parseInt( prompt('Inserisci un numero da 1 a ' + max) );
+};
